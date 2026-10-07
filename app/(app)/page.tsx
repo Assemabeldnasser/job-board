@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Counter from "@/Components/counter"
+// import Counter from "@/Components/counter"
 import Link from "next/link";
 
 export default async function Home() {
