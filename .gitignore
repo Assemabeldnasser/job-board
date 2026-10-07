@@ -2,6 +2,10 @@
 
 # dependencies
 /node_modules
+/app/blog
+/app/shop
+/Components/counter.tsx
+
 /.pnp
 .pnp.*
 .yarn/*
