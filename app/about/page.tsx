@@ -1,4 +1,4 @@
-import Login from "@/Components/login";
+import Login from "@/components/login";
 const about = () => {
 return(
     <div>

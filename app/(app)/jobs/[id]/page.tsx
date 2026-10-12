@@ -1,14 +1,31 @@
+import JobNotFound from "@/components/jobs/JobNotFound";
+import { JobsData } from "@/data/JobsData";
+import Link from "next/link";
+import JobDescription from "@/components/jobs/JobDescription";
+import JobApplyForm from "@/components/jobs/JobApplyForm";
 
 type prob  = {
     params: Promise<{id:string}>;
 }; 
+
 export default async function detailedJob({params}:prob) {
     const {id}= await params;
+    const job = JobsData.find((job)=>job.id === id)
+    if(!job)
+        return <JobNotFound/>
     return (
-        <div className="border-2 rounded-lg text-center width-50">
-            <h1 className="text-lg text-center font-bold">Job Title</h1>
-            <h3>Job Position</h3>
-            <p> Salary</p>
-        </div>
+    <div className="max-w-7xl mx-auto px-6 py-8">
+      <Link
+        href="/jobs"
+        className="font-mono text-sm text-muted-foreground hover:text-accent transition-none"
+      >
+        ← ALL POSITIONS
+      </Link>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 mt-6">
+        <JobDescription job={job} />
+        <JobApplyForm />
+      </div>
+    </div>
     );
 }

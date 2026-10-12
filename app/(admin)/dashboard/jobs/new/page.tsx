@@ -1,9 +1,18 @@
-import Link from "next/link";
-export default function NewJob (){
-    return(
-        <div>
-            <h1> Add New Job </h1>
-            <Link href="/dashboard/jobs" className="border-2 rounded-lg cursor-pointer my-0 px-1 border-blue-200 text-blue-400"> Back to Jobs </Link>
+import AdminPageHeader from "@/components/common/AdminPageHeader";
+import CreateJobForm from "@/components/job-management/CreateJobForm";
+
+export default function NewJob() {
+    return (
+        <div className="w-full min-w-0">
+            <AdminPageHeader
+                title={"CREATE JOB"}
+                subtitle={"NEW LISTING"}
+                btnLabel={"<- Back"}
+                navigateLink={"/dashboard/jobs"}
+                variant={"default"}
+            />
+            <CreateJobForm/>
         </div>
+
     );
 }

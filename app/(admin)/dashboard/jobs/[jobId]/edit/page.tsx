@@ -1,16 +1,30 @@
-import Link from "next/link";
+import AdminPageHeader from "@/components/common/AdminPageHeader";
+import EditJobForm from "@/components/job-management/EditJobForm";
+import JobNotFound from "@/components/jobs/JobNotFound";
+import { JobsData } from "@/data/JobsData";
+import { log } from "console";
+
 type prob = {
-    params : Promise<{JobId : string}>;
+    params : Promise<{jobId : string}>;
 }
 export default async function editJob ({params}:prob){
-    const {JobId} = await params;
-    console.log(JobId);
-    
+    const {jobId} = await params;
+    // console.log(jobId);
+    const Job = JobsData.find((job)=> job.id === jobId);
+    if(!Job)
+        return <JobNotFound/>
     return(
-        <div>
-            <h1> Edit Job</h1>
-            <Link href="/dashboard/jobs" className="border-2 rounded-lg cursor-pointer my-0 px-1 border-blue-200 text-blue-400"> Return to all Jobs </Link>
-            <Link href={`/dashboard/jobs/${JobId}`} className="border-2 rounded-lg cursor-pointer my-0 px-1 border-blue-200 text-blue-400"> Save and Go to Job </Link>
+        <div className="w-full min-w-0">
+            <AdminPageHeader
+                title={"Edit JOB"}
+                subtitle={`${Job.title}`}
+                btnLabel={"<- Back"}
+                navigateLink={"/dashboard/jobs"}
+                variant={"default"}
+            />
+            <EditJobForm
+            job = {Job}
+            />
         </div>
     );
 }
