@@ -12,8 +12,8 @@ export function proxy(request: NextRequest) {
     console.log("URL= ",url);
     console.log("Pathname= ",pathname);
 
-    const AdminHost = host.includes("admin.localhost");
-    const UserHost = host.startsWith("localhost")
+    const AdminHost = ["admin.localhost","dev-admin.localhost"].includes(host);
+    const UserHost = ["localhost","dev.localhost"].includes(host);
     if(AdminHost && !pathname.includes("/dashboard"))
         return NextResponse.redirect(new URL('/dashboard', request.url))
     if (UserHost && pathname.includes("/dashboard"))
