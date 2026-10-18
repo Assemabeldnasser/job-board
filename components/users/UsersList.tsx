@@ -8,7 +8,7 @@ import { getCandidateApplications } from "@/utils/getCandidateApplications";
 import Link from "next/link";
 
 export default function UsersList() {
-    const { search, setSearch, expandedUser, setExpandedUser, candidates, setCandidates, jobs, setJobs, applications, setApplications, filteredCandidates, avgScore, totalApplications } = useUsers();
+    const { expandedUser, setExpandedUser, jobs, applications, filteredCandidates } = useUsers();
     return (
       <div className="mt-6 space-y-0">
       {filteredCandidates.length === 0 ? (
