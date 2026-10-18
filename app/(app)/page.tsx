@@ -1,21 +1,37 @@
 import HeroSection from "@/components/landing/HeroSection";
 import FeaturedJobs from "@/components/landing/FeaturedJobs";
+import TestAction from "@/components/landing/TestActions";
 
 import Image from "next/image";
 // import Counter from "@/Components/counter"
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
+import { testAction } from "@/actions/testAction";
+import TestFetch from "@/components/landing/TestFormFetch";
 
 export default async function Home() {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts")
   const posts = await res.json()
   // console.log(posts);
+const test2 = async(formdata:FormData) => {
+  "use server"
+  const Inp1 = formdata.get("Inp1");
+  const Inp2 = formdata.get("Inp2");
+console.log("Test 2",Inp1,Inp2);
 
+}
   return (
 <>
 <HeroSection/>
 <FeaturedJobs/>
+<TestAction/>
+<form action={test2}>
+  <Input type="text" name="Inp1" placeholder="Name"></Input>
+  <Input type="number" name="Inp2" placeholder="Age"></Input>
+  <Button type="submit"> Test 2 </Button>
+</form>
+<TestFetch/>
 </>
     // <div className="flex min-h-screen items-center justify-center p-8 ">
     //   <div className="w-full max-w-xl">
