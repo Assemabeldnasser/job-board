@@ -1,8 +1,8 @@
 import JobNotFound from "@/components/jobs/JobNotFound";
-import { JobsData } from "@/data/JobsData";
 import Link from "next/link";
 import JobDescription from "@/components/jobs/JobDescription";
 import JobApplyForm from "@/components/jobs/JobApplyForm";
+import { getJob } from "@/services/jobs/jobs.services";
 
 type prob  = {
     params: Promise<{id:string}>;
@@ -10,7 +10,10 @@ type prob  = {
 
 export default async function detailedJob({params}:prob) {
     const {id}= await params;
-    const job = JobsData.find((job)=>job.id === id)
+    const result = await getJob(id);
+    if(!result.success)
+      return <JobNotFound/>
+    const {data:job} = result;
     if(!job)
         return <JobNotFound/>
     return (

@@ -1,27 +1,38 @@
-import { CandidatesData } from "@/data/CandidatesData";
 import DashboardStatus from "@/components/dashboard/DashboardStatus";
-import { JobsData } from "@/data/JobsData";
 import RecentApplication from "@/components/dashboard/RecentApplications";
+import { getJobs } from "@/services/jobs/jobs.services";
+import JobNotFound from "@/components/jobs/JobNotFound";
+import { getCandidates } from "@/services/candidates/candidates.service";
 
-export default function AdminDashboard() {
+export default async function AdminDashboard() {
 
-    const averageScore = CandidatesData.length
+    const JobsResult = await getJobs();
+    const CandidatesResult = await getCandidates();
+
+    if(!JobsResult.success)
+        return <JobNotFound/>
+        if(!CandidatesResult.success)
+        return <JobNotFound/>
+    const {data:candidates = []} = CandidatesResult;
+    const {data:jobs = []} = JobsResult;
+
+    const averageScore = candidates.length
         ? (
-            CandidatesData.reduce((sum, c) => sum + c.aiScore, 0) /
-            CandidatesData.length
+            candidates.reduce((sum, c) => sum + c.aiScore, 0) /
+            candidates.length
         ).toFixed(1)
         : "0.0";
 
     const statusCounts = {
-        SUBMITTED: CandidatesData.filter((c) => c.status === "SUBMITTED").length,
-        REVIEW: CandidatesData.filter((c) => c.status === "REVIEW").length,
-        SHORTLIST: CandidatesData.filter((c) => c.status === "SHORTLIST").length,
-        INTERVIEW: CandidatesData.filter((c) => c.status === "INTERVIEW").length,
-        REJECTED: CandidatesData.filter((c) => c.status === "REJECTED").length,
+        SUBMITTED: candidates.filter((c) => c.status === "SUBMITTED").length,
+        REVIEW: candidates.filter((c) => c.status === "REVIEW").length,
+        SHORTLIST: candidates.filter((c) => c.status === "SHORTLIST").length,
+        INTERVIEW: candidates.filter((c) => c.status === "INTERVIEW").length,
+        REJECTED: candidates.filter((c) => c.status === "REJECTED").length,
     };
-    const activeJobs = JobsData.length;
-    const totalCandidates = CandidatesData.length;
-    const interview = CandidatesData.filter((c) => c.status === "INTERVIEW").length;
+    const activeJobs = jobs.length;
+    const totalCandidates = candidates.length;
+    const interview = candidates.filter((c) => c.status === "INTERVIEW").length;
     return (
         <>
             <h1 className="font-mono text-4xl md:text-4xl font-bold"> OVERVIEW </h1>
@@ -33,7 +44,7 @@ export default function AdminDashboard() {
                 interviews={interview}
             />
             <RecentApplication 
-            Candidates = {CandidatesData}/>
+            Candidates = {candidates}/>
         </>
     );
 }

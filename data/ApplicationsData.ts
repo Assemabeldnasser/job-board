@@ -15,7 +15,7 @@ export const ApplicationsData: Application[] = [
   {
     id: "a2",
     candidateId: "u1",
-    jobId: "6",
+    jobId: "4",
     role: "Rust Systems Developer",
     aiScore: 8.4,
     status: "REVIEW",
@@ -63,7 +63,7 @@ export const ApplicationsData: Application[] = [
   {
     id: "a7",
     candidateId: "u4",
-    jobId: "7",
+    jobId: "5",
     role: "ML Operations Engineer",
     aiScore: 8.8,
     status: "SUBMITTED",
@@ -102,7 +102,7 @@ export const ApplicationsData: Application[] = [
   {
     id: "a11",
     candidateId: "u7",
-    jobId: "6",
+    jobId: "3",
     role: "Rust Systems Developer",
     aiScore: 8.5,
     status: "SUBMITTED",

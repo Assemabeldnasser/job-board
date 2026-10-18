@@ -1,22 +1,28 @@
 "use client"
 import { useState } from "react";
-import { ApplicationsData } from "@/data/ApplicationsData";
 import ApplicationsContext from "./AppliationsContext";
 import getCandidate from "@/utils/GetCandidate";
-import { CandidatesData } from "@/data/CandidatesData";
-import { JobsData } from "@/data/JobsData";
 import { Job } from "@/types/Job";
 import { Application } from "@/types/Application";
+import { Candidate } from "@/types/Candidate";
 
-const ApplicationsProvider = ({ children }: { children: React.ReactNode }) => {
+type Props = {
+    jobs:Job[], 
+    applications:Application[], 
+    candidates:Candidate[],
+    children: React.ReactNode,
+};
+const ApplicationsProvider = ({jobs=[],applications=[],candidates=[], children }: Props) => {
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState<string>("ALL");
     const [jobFilter, setJobFilter] = useState<string>("ALL");
-    const [jobs, setJobs] = useState<Job[]>(JobsData);
-    const [applications, setApplication] = useState<Application[]>(ApplicationsData);
+    const [jobstate] = useState<Job[]>(jobs);
+    const [applicationsState] = useState<Application[]>(applications);
+    const [candidatesState] = useState<Candidate[]>(candidates);
 
-    const filteredApplications = ApplicationsData.filter((app) => {
-        const candidate = getCandidate(app.candidateId, CandidatesData);
+
+    const filteredApplications = applicationsState.filter((app) => {
+        const candidate = getCandidate(app.candidateId, candidatesState);
         const searchTerm = search.toLowerCase();
         const matchesSearch = !search || (candidate !== undefined && (candidate.name.toLowerCase().includes(searchTerm) || candidate.email.toLowerCase().includes(searchTerm) || app.role.toLowerCase().includes(searchTerm)));
         const matchesStatus = statusFilter === "ALL" || app.status === statusFilter;
@@ -25,7 +31,7 @@ const ApplicationsProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     return (
-        <ApplicationsContext.Provider value={{ search, setSearch, statusFilter, setStatusFilter, jobFilter, setJobFilter,filteredApplications, jobs, setJobs, applications, setApplication }}>
+        <ApplicationsContext.Provider value={{ search, setSearch, statusFilter, setStatusFilter, jobFilter, setJobFilter,filteredApplications, jobs:jobstate, applications:applicationsState,candidates:candidatesState }}>
             {children}
         </ApplicationsContext.Provider>
     )

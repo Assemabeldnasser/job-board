@@ -65,7 +65,7 @@ export const BrutalSelect = ({
     <select
       className={cn(
         "w-full brutal-border bg-background px-4 py-3 font-mono text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px] focus:shadow-accent appearance-none cursor-pointer",
-        error && "border-red-500",
+        error && "!border-red-500",
       )}
       {...props}
     >
