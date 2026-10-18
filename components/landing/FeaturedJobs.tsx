@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { JobsData } from "@/data/JobsData";
+import { Job } from "@/types/Job";
 
-export default function FeaturedJobs() {
-  const featuredJobs = JobsData.slice(0, 4);
+type Probs = {
+  jobs:Job[];
+};
+export default function FeaturedJobs({jobs}:Probs) {
+  const featuredJobs = jobs.slice(0, 4);
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-16">

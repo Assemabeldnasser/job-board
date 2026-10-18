@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { JobsData } from "@/data/JobsData";
 import { useJobs } from "@/context/jobs/JobsContext";
 // import { useContext } from "react";
 // import JobsContext from "@/context/jobs/JobsContext";
@@ -7,10 +6,10 @@ import { useJobs } from "@/context/jobs/JobsContext";
 export default function JobCards() {
 
     // const { search, typeFilter, locationFilter } = useContext(JobsContext);
-    const { search, typeFilter, locationFilter } = useJobs();
+    const { jobs, search, typeFilter, locationFilter } = useJobs();
 
     
-    const filtered = JobsData.filter((j) => {
+    const filtered = jobs.filter((j) => {
         const query = search.trim().toLowerCase();
 
         const matchSearch =

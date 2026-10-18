@@ -2,6 +2,7 @@
 import { createContext, useContext } from "react";
 import { Application } from "@/types/Application";
 import { Job } from "@/types/Job";
+import { Candidate } from "@/types/Candidate";
 
 type ApplicationsContextType = {
     search: string;
@@ -12,9 +13,8 @@ type ApplicationsContextType = {
     setJobFilter: (jobFilter: string) => void;
     filteredApplications: Application[];
     jobs: Job[];
-    setJobs: (jobs: Job[]) => void;
     applications: Application[];
-    setApplication: (applications: Application[]) => void;
+    candidates:Candidate[];
 };
 
 const ApplicationsContext = createContext<ApplicationsContextType>({
@@ -26,9 +26,8 @@ const ApplicationsContext = createContext<ApplicationsContextType>({
     setJobFilter: () => { },
     filteredApplications: [],
     jobs: [],
-    setJobs: () => { },
     applications: [],
-    setApplication: () => { },
+    candidates:[],
 });
 
 export const useApplications = () => {

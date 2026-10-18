@@ -18,7 +18,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
         <textarea
           className={cn(
             "w-full brutal-border bg-background px-4 py-3 font-mono text-sm focus:outline-none focus:shadow-[4px_4px_0px_0px] focus:shadow-accent min-h-[120px] resize-y",
-            error && "border-red-500",
+            error && "!border-red-500",
             className,
           )}
           ref={ref}

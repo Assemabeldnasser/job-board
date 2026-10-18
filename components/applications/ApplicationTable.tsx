@@ -5,10 +5,9 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { AiScore } from "../BrutalUI";
-import { CandidatesData } from "@/data/CandidatesData";
 
 export default function ApplicationTable() {
-    const { filteredApplications, jobs } = useApplications();
+    const { filteredApplications, jobs,candidates } = useApplications();
     return (
         <div className="mt-6 brutal-border">
             <div className="grid grid-cols-[2fr_2fr_1fr_1fr_1fr_1fr] bg-foreground text-background px-4 py-3">
@@ -32,7 +31,7 @@ export default function ApplicationTable() {
                 </div>
             ) : (
                 filteredApplications.map((app) => {
-                    const candidate = CandidatesData.find(
+                    const candidate = candidates.find(
                         (candidate) => candidate.id === app.candidateId
                     );
 
