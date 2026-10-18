@@ -2,6 +2,7 @@
 import { createContext, useContext } from "react";
 import { Application } from "@/types/Application";
 import { Job } from "@/types/Job";
+import { Candidate } from "@/types/Candidate";
 
 type ApplicationsContextType = {
     search: string;
@@ -13,7 +14,7 @@ type ApplicationsContextType = {
     filteredApplications: Application[];
     jobs: Job[];
     applications: Application[];
-    setApplication: (applications: Application[]) => void;
+    candidates:Candidate[];
 };
 
 const ApplicationsContext = createContext<ApplicationsContextType>({
@@ -26,7 +27,7 @@ const ApplicationsContext = createContext<ApplicationsContextType>({
     filteredApplications: [],
     jobs: [],
     applications: [],
-    setApplication: () => { },
+    candidates:[],
 });
 
 export const useApplications = () => {
