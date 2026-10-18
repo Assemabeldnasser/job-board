@@ -9,30 +9,36 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
 import { testAction } from "@/actions/testAction";
 import TestFetch from "@/components/landing/TestFormFetch";
+import { getJobs } from "@/services/jobs/jobs.services";
 
 export default async function Home() {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts")
   const posts = await res.json()
   // console.log(posts);
-const test2 = async(formdata:FormData) => {
-  "use server"
-  const Inp1 = formdata.get("Inp1");
-  const Inp2 = formdata.get("Inp2");
-console.log("Test 2",Inp1,Inp2);
+  const test2 = async (formdata: FormData) => {
+    "use server"
+    const Inp1 = formdata.get("Inp1");
+    const Inp2 = formdata.get("Inp2");
+    console.log("Test 2", Inp1, Inp2);
+  }
 
-}
+  const result = await getJobs();
+  if (!result.success)
+    return <div>Jobs Not Found</div>
+  const { data: jobs = [] } = result;
+
   return (
-<>
-<HeroSection/>
-<FeaturedJobs/>
-<TestAction/>
-<form action={test2}>
-  <Input type="text" name="Inp1" placeholder="Name"></Input>
-  <Input type="number" name="Inp2" placeholder="Age"></Input>
-  <Button type="submit"> Test 2 </Button>
-</form>
-<TestFetch/>
-</>
+    <>
+      <HeroSection />
+      <FeaturedJobs jobs={jobs} />
+      <TestAction />
+      <form action={test2}>
+        <Input type="text" name="Inp1" placeholder="Name"></Input>
+        <Input type="number" name="Inp2" placeholder="Age"></Input>
+        <Button type="submit"> Test 2 </Button>
+      </form>
+      <TestFetch />
+    </>
     // <div className="flex min-h-screen items-center justify-center p-8 ">
     //   <div className="w-full max-w-xl">
     //     <Button variant="default" className="m-2"> View All </Button>

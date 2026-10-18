@@ -1,9 +1,15 @@
 import { CandidatesData } from "@/data/CandidatesData";
 import DashboardStatus from "@/components/dashboard/DashboardStatus";
-import { JobsData } from "@/data/JobsData";
 import RecentApplication from "@/components/dashboard/RecentApplications";
+import { getJobs } from "@/services/jobs/jobs.services";
+import JobNotFound from "@/components/jobs/JobNotFound";
 
-export default function AdminDashboard() {
+export default async function AdminDashboard() {
+
+    const result = await getJobs();
+    if(!result.success)
+        return <JobNotFound/>
+    const {data:jobs = []} = result;
 
     const averageScore = CandidatesData.length
         ? (
@@ -19,7 +25,7 @@ export default function AdminDashboard() {
         INTERVIEW: CandidatesData.filter((c) => c.status === "INTERVIEW").length,
         REJECTED: CandidatesData.filter((c) => c.status === "REJECTED").length,
     };
-    const activeJobs = JobsData.length;
+    const activeJobs = jobs.length;
     const totalCandidates = CandidatesData.length;
     const interview = CandidatesData.filter((c) => c.status === "INTERVIEW").length;
     return (

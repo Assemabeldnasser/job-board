@@ -2,10 +2,15 @@ import UsersProvider from "@/context/users/UsersProvider";
 import UsersStatus from "./UsersStatus";
 import UsersSearch from "./UsersSearch";
 import UsersList from "./UsersList";
+import { Job } from "@/types/Job";
 
-export default function UsersListingWrapper() {
+type Probs ={
+    jobs:Job[];
+};
+
+export default function UsersListingWrapper({jobs}:Probs) {
     return (
-        <UsersProvider>
+        <UsersProvider jobs={jobs}>
             <UsersStatus/>
             <UsersSearch/>
             <UsersList/>

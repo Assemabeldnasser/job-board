@@ -1,3 +1,4 @@
+import { Job } from "@/types/Job";
 import { createContext , useContext} from "react"
 
 type JobsContextType = {
@@ -7,6 +8,7 @@ type JobsContextType = {
     setTypeFilter : (typeFilter: string) => void;
     locationFilter: string;
     setLocationFilter : (locationFilter: string) => void;
+    jobs: Job[];
 }
 
 const JobsContext = createContext <JobsContextType>({
@@ -16,6 +18,7 @@ const JobsContext = createContext <JobsContextType>({
     setTypeFilter : () => {},
     locationFilter: "ALL",
     setLocationFilter : () => {},
+    jobs:[],
 })
 
 export const useJobs = () => {
