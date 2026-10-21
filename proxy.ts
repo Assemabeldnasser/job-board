@@ -12,14 +12,14 @@ export function proxy(request: NextRequest) {
   .toLowerCase();
 
     const pathname = url.pathname;
-    console.log("Host= ",host);
-    console.log("URL= ",url);
-    console.log("Pathname= ",pathname);
+    // console.log("Host= ",host);
+    // console.log("URL= ",url);
+    // console.log("Pathname= ",pathname);
 
     const AdminHost = ["admin.localhost","dev-admin.localhost"].includes(host);
     const UserHost = ["localhost","dev.localhost"].includes(host);
-    console.log("Admin",AdminHost);
-    console.log("User= ",UserHost);
+    // console.log("Admin",AdminHost);
+    // console.log("User= ",UserHost);
 
     if(AdminHost && !pathname.includes("/dashboard"))
         return NextResponse.redirect(new URL('/dashboard', request.url))
